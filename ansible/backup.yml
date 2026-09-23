@@ -1,0 +1,44 @@
+---
+# backup.yml — Pull the running configuration of every router and store it
+# on the controller as a timestamped .rsc file plus a "latest" copy.
+#
+# Usage:
+#   ansible-playbook -i inventory.yml backup.yml
+- name: Back up RouterOS configurations
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Export running configuration
+      community.routeros.command:
+        commands:
+          - /export
+      register: config_export
+
+    - name: Ensure backup directories exist
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/../backups/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - ""
+        - history
+      delegate_to: localhost
+      run_once: true
+
+    - name: Store timestamped backup in history
+      ansible.builtin.copy:
+        content: "{{ config_export.stdout[0] }}"
+        dest: "{{ playbook_dir }}/../backups/history/{{ inventory_hostname }}-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}.rsc"
+        mode: "0644"
+      delegate_to: localhost
+      # In check mode the export task does not return stdout; skip writing.
+      when: config_export.stdout is defined
+
+    - name: Refresh latest backup copy
+      ansible.builtin.copy:
+        content: "{{ config_export.stdout[0] }}"
+        dest: "{{ playbook_dir }}/../backups/{{ inventory_hostname }}.rsc"
+        mode: "0644"
+      delegate_to: localhost
+      when: config_export.stdout is defined
