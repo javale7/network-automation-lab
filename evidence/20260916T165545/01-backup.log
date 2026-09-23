@@ -1,0 +1,19 @@
+
+PLAY [Back up RouterOS configurations] *****************************************
+
+TASK [Export running configuration] ********************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+[ERROR]: Task failed: Module failed: host key mismatch for 127.0.0.1
+Origin: /home/hatch/workspace/network-automation-lab/ansible/backup.yml:12:7
+
+10
+11   tasks:
+12     - name: Export running configuration
+         ^ column 7
+
+fatal: [r1]: FAILED! => {"changed": false, "msg": "host key mismatch for 127.0.0.1"}
+fatal: [r2]: FAILED! => {"changed": false, "msg": "host key mismatch for 127.0.0.1"}
+
+PLAY RECAP *********************************************************************
+r1                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+r2                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
