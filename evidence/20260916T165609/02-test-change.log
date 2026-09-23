@@ -1,0 +1,17 @@
+
+PLAY [Apply demo configuration change] *****************************************
+
+TASK [Set a recognizable system identity] **************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+[ERROR]: Task failed: Module failed: host key mismatch for 127.0.0.1
+Origin: /home/hatch/workspace/network-automation-lab/ansible/test_change.yml:13:7
+
+11
+12   tasks:
+13     - name: Set a recognizable system identity
+         ^ column 7
+
+fatal: [r1]: FAILED! => {"changed": false, "msg": "host key mismatch for 127.0.0.1"}
+
+PLAY RECAP *********************************************************************
+r1                         : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
