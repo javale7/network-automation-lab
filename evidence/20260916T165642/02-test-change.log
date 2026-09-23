@@ -1,0 +1,9 @@
+
+PLAY [Apply demo configuration change] *****************************************
+
+TASK [Set a recognizable system identity] **************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+changed: [r1]
+
+PLAY RECAP *********************************************************************
+r1                         : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
