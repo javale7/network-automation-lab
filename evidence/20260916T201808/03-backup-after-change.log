@@ -1,0 +1,23 @@
+
+PLAY [Back up RouterOS configurations] *****************************************
+
+TASK [Export running configuration] ********************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+changed: [r1]
+changed: [r2]
+
+TASK [Ensure backup directories exist] *****************************************
+ok: [r1 -> localhost] => (item=)
+ok: [r1 -> localhost] => (item=history)
+
+TASK [Store timestamped backup in history] *************************************
+changed: [r1 -> localhost]
+changed: [r2 -> localhost]
+
+TASK [Refresh latest backup copy] **********************************************
+changed: [r1 -> localhost]
+changed: [r2 -> localhost]
+
+PLAY RECAP *********************************************************************
+r1                         : ok=4    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+r2                         : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
