@@ -1,0 +1,21 @@
+# Containerlab topology: two emulated MikroTik CHR routers
+name: netlab
+
+topology:
+  kinds:
+    vr-ros:
+      # CHR image must be present locally, e.g.:
+      #   containerlab deploy --reconfigure -t lab/topology.clab.yml
+      # See README "Lab setup" for the download step.
+      image: vr-ros:7.18
+  nodes:
+    r1:
+      kind: vr-ros
+      mgmt-ipv4: 10.90.0.11
+    r2:
+      kind: vr-ros
+      mgmt-ipv4: 10.90.0.12
+
+mgmt:
+  network: netlab-mgmt
+  ipv4-subnet: 10.90.0.0/24
