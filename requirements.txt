@@ -1,0 +1,4 @@
+# Python deps for the audit tooling (the diff script itself is stdlib-only).
+# Ansible is installed separately; the RouterOS collection comes from Galaxy:
+#   ansible-galaxy collection install -r ansible/requirements.yml
+ansible-core>=2.16
