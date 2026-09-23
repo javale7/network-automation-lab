@@ -1,0 +1,16 @@
+---
+# test_change.yml — Apply one small, harmless, clearly visible change.
+# Used by the demo flow to prove the drift audit actually catches changes.
+# Safe to run repeatedly (idempotent by nature of the command).
+#
+# Usage:
+#   ansible-playbook -i inventory.yml test_change.yml --limit r1
+- name: Apply demo configuration change
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Set a recognizable system identity
+      community.routeros.command:
+        commands:
+          - /system identity set name={{ inventory_hostname }}-lab-demo
