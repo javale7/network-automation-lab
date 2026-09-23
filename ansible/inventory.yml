@@ -1,0 +1,24 @@
+---
+# Lab inventory: two emulated MikroTik CHR routers.
+# The lab bring-up script maps each router's SSH to localhost ports,
+# so no real network or credentials are involved.
+# For real devices, replace hosts/ports and inject credentials via
+# Ansible Vault (never commit real passwords).
+all:
+  children:
+    routers:
+      hosts:
+        r1:
+          ansible_host: 127.0.0.1
+          ansible_port: 2222
+        r2:
+          ansible_host: 127.0.0.1
+          ansible_port: 2223
+      vars:
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_network_os: community.routeros.routeros
+        ansible_user: admin
+        # Set by lab/first_boot.py on fresh CHR (RouterOS 7.x forces a
+        # password change on first login). Lab-only credential — for real
+        # devices inject via Ansible Vault, never commit real passwords.
+        ansible_ssh_pass: "netlab123"
